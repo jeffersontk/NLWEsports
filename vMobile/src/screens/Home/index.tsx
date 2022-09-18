@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, FlatList } from 'react-native';
+import { Image, FlatList, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import logoImg from '../../assets/logo-nlw-esports.png'
@@ -7,7 +7,8 @@ import { Background } from '../../components/Background';
 import { GameCard, GameCardProps } from '../../components/GameCard';
 import { Heading } from '../../components/Heading';
 import { styles } from './styles';
-
+import { AntDesign } from '@expo/vector-icons'
+import { THEME } from '../../theme';
 export function Home() {
   const [games, setGames] = useState<GameCardProps[]>([])
   const navigation = useNavigation()
@@ -42,7 +43,20 @@ export function Home() {
             onPress={() => handleOpenGame(item)}
           />)}
           horizontal
-          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={()=> (
+            <View style={{alignItems: 'center'}}>
+               <AntDesign 
+                name='meh'
+                color={THEME.COLORS.CAPTION_300}
+                size={28}
+                style={{marginBottom: 8}}
+              />
+              <Text style={styles.EmptyMessage}>
+                Não há games publicados ainda!
+              </Text>
+            </View>
+          )}
           contentContainerStyle={styles.contentList}
         />
       </SafeAreaView>
